@@ -2,11 +2,12 @@ FROM python:3.10
 
 WORKDIR /code
 
+COPY ./requirements.txt /code/requirements.txt
 
-COPY ./.venv /code/.venv
-# COPY ./app /code/app
-COPY ./output_frames /code/output_frames
-COPY ./uploaded_videos /code/uploaded_videos
+RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+
+COPY ./main.py /code/main.py
+COPY ./video.py /code/video.py
 
 
 
