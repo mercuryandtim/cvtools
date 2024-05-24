@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y libgl1-mesa-glx
 COPY ./requirements.txt /code/requirements.txt
 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
-RUN mkdir -p /code/uploaded_videos /code/output_frames 
+RUN mkdir -p /code/uploaded_videos /code/output_frames && chown -R 1000:1000 /code
 
 
 COPY ./app /code/app
