@@ -2,7 +2,7 @@ from fastapi import APIRouter, UploadFile, File, HTTPException
 from fastapi.responses import JSONResponse
 import cv2
 import numpy as np
-# from PIL import Image
+from PIL import Image
 from transparent_background import Remover
 import os
 import uuid
@@ -51,43 +51,50 @@ async def save_first_frame(video_path, output_image_path):
         bool: True if successful, False otherwise.
     """
     try:
-            # Load external library
-            # remover = Remover(device='cuda:0')
-            remover = Remover()
+        # Load external library
+        # remover = Remover(device='cuda:0')
+        remover = Remover()
 
-            # Open the video file
-            cap = cv2.VideoCapture(video_path)
-            print(cap)
-            # Check if video opened successfully
-            if not cap.isOpened():
-                logger.error(f"Error: Cannot open video file {video_path}")
-                return False
+        # Open the video file
+        cap = cv2.VideoCapture(video_path)
+        
+        # Check if video opened successfully
+        if not cap.isOpened():
+            logger.error(f"Error: Cannot open video file {video_path}")
+            return False
 
-            # Read the first frame
-            ret, frame = cap.read()
-            print(ret)
-            print(frame)
-            # If a frame was read successfully, save it
-            if ret:
-                # out = remover.process(frame)  # same as above
-                  # Check if 'out' is a numpy array (which is expected)
-                if isinstance(frame, np.ndarray):
-                    cv2.imwrite(output_image_path,frame)
-                    logger.info(f"First frame saved to {output_image_path}")
-                    success = True
-                else:
-                    logger.error(f"Unexpected output type from remover.process: {type(out)}")
-                    success = False
-                
-                # cv2.imwrite(output_image_path, out)
-                # logger.info(f"First frame saved to {output_image_path}")
-                # success = True
-            else:
-                logger.error(f"Error: Cannot read the first frame of {video_path}")
-                success = False
+        # Read the first frame
+        ret, frame = cap.read()
 
+        # Check if reading the frame was successful
+        if not ret:
+            logger.error(f"Error: Cannot read the first frame of {video_path}")
             cap.release()
-            return success
+            return False
+
+        # Convert frame to RGB
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) 
+        img = Image.fromarray(frame).convert('RGB')
+
+        # Process the frame
+        out = remover.process(img)
+
+        # Save the processed frame
+        out.save(output_image_path)
+        
+        logger.info(f"First frame saved to {output_image_path}")
+
+        cap.release()
+        return True
+
+    except cv2.error as cv2_err:
+        logger.error(f"OpenCV error: {cv2_err}")
+        return False
+
+    except PIL.Image.Error as pil_err:
+        logger.error(f"PIL error: {pil_err}")
+        return False
+
     except Exception as e:
         logger.error(f"Error processing video: {e}")
         return False
