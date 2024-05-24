@@ -77,7 +77,8 @@ async def save_first_frame(video_path, output_image_path):
 
         # Save the processed frame
         out.save(output_image_path)
-        
+
+        print(f"First frame saved to {output_image_path}")
         logger.info(f"First frame saved to {output_image_path}")
 
         cap.release()
@@ -112,7 +113,7 @@ async def process_video_and_return_url(video_file: UploadFile):
         logger.error(f"Error saving uploaded video: {e}")
         raise HTTPException(status_code=500, detail="Failed to save uploaded video")
 
-
+    print(output_image_path)
     # Process the video asynchronously
     success = await save_first_frame(video_path, output_image_path)
     if success:
