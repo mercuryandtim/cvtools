@@ -103,10 +103,11 @@ async def process_video_and_return_url(video_file: UploadFile):
     video_path = os.path.join(upload_dir, video_file.filename)
     output_dir = "output_frames"
     os.makedirs(output_dir, exist_ok=True)
-
     if not os.access(output_dir, os.W_OK):
         raise PermissionError(f"Cannot write to directory: {output_dir}")
-    output_image_path = (os.path.join(output_dir, f"{os.path.splitext(video_file.filename)[0]}_first_frame.png")).replace("\\", "/")
+    output_image_path = f"./{output_dir}/{os.path.splitext(video_file.filename)[0]}_first_frame.png"
+    print(output_image_path)
+    # output_image_path = (os.path.join(output_dir, f"{os.path.splitext(video_file.filename)[0]}_first_frame.png")).replace("\\", "/")
 
     # Save the uploaded video file
     try:
