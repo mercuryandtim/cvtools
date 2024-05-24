@@ -77,6 +77,7 @@ async def save_first_frame(video_path, output_image_path):
 
         # Save the processed frame
         out.save(output_image_path)
+        out.close()
 
         print(f"First frame saved to {output_image_path}")
         logger.info(f"First frame saved to {output_image_path}")
@@ -88,7 +89,7 @@ async def save_first_frame(video_path, output_image_path):
         logger.error(f"OpenCV error: {cv2_err}")
         return False
 
-    except PIL.Image.Error as pil_err:
+    except Image.Error as pil_err:
         logger.error(f"PIL error: {pil_err}")
         return False
 
@@ -102,6 +103,9 @@ async def process_video_and_return_url(video_file: UploadFile):
     video_path = os.path.join(upload_dir, video_file.filename)
     output_dir = "output_frames"
     os.makedirs(output_dir, exist_ok=True)
+
+    if not os.access(output_dir, os.W_OK):
+        raise PermissionError(f"Cannot write to directory: {output_dir}")
     output_image_path = (os.path.join(output_dir, f"{os.path.splitext(video_file.filename)[0]}_first_frame.png")).replace("\\", "/")
 
     # Save the uploaded video file
