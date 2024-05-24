@@ -22,10 +22,6 @@ logger = logging.getLogger(__name__)
 async def test():
     return ("test")
 
-router = APIRouter(
-    tags=["upload"],
-    responses={404: {"description": "Not found"}},
-)
 @router.get("/static/storage/{filename}")
 async def getfile(id: str, type: str, filename: str):
     
