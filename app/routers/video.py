@@ -23,7 +23,7 @@ async def test():
     return ("test")
 
 @router.get("/static/storage/{filename}")
-async def getfile(id: str, type: str, filename: str):
+async def getfile(filename: str):
     
     # Ensure the filename is concatenated correctly
     file_path = fr".\output_frames\{filename}"
