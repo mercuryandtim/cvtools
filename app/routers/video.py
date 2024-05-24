@@ -30,7 +30,7 @@ router = APIRouter(
 async def getfile(id: str, type: str, filename: str):
     
     # Ensure the filename is concatenated correctly
-    file_path = fr"C:\Users\HiDigi\OneDrive\Desktop\WebDev\ChangeBackground\output_frames\{filename}"
+    file_path = fr".\output_frames\{filename}"
     # print(file_path)
     # Check if the file exists
     if not os.path.exists(file_path):
