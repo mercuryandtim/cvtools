@@ -16,7 +16,7 @@ COPY --chown=user . /code
 
 # Create necessary directories and set permissions before switching to non-root user
 RUN mkdir -p /code/app/uploaded_videos code/app/output_frames \
-    && chown -R 1000:1000 /app /code
+    && chown -R 1000:1000 /code /app
 
 
 ENV PATH="/code/venv/bin:$PATH"
