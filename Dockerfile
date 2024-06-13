@@ -15,8 +15,7 @@ RUN /code/venv/bin/pip install --no-cache-dir --upgrade -r /code/requirements.tx
 COPY --chown=user . /code
 
 # Create necessary directories and set permissions before switching to non-root user
-RUN mkdir -p /code/app/uploaded_videos code/app/output_frames \
-    && chown -R 1000:1000 /code /app
+RUN mkdir -p /code/app/uploaded_videos code/app/output_frames 
 
 
 ENV PATH="/code/venv/bin:$PATH"
