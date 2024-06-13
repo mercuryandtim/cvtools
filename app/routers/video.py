@@ -99,13 +99,17 @@ async def save_first_frame(video_path, output_image_path):
 
 async def process_video_and_return_url(video_file: UploadFile):
     upload_dir = "uploaded_videos"
+    logger.info(f"Upload directory created or already exists: {upload_dir}")
     os.makedirs(upload_dir, exist_ok=True)
     video_path = os.path.join(upload_dir, video_file.filename)
+    logger.info(f"Video path: {video_path}")
     output_dir = "output_frames"
     os.makedirs(output_dir, exist_ok=True)
+    logger.info(f"Output directory created or already exists: {output_dir}")
     if not os.access(output_dir, os.W_OK):
         raise PermissionError(f"Cannot write to directory: {output_dir}")
     output_image_path = f"./{output_dir}/{os.path.splitext(video_file.filename)[0]}_first_frame.png"
+    logger.info(f"Output image path: {output_image_path}")
     print(output_image_path)
     # output_image_path = (os.path.join(output_dir, f"{os.path.splitext(video_file.filename)[0]}_first_frame.png")).replace("\\", "/")
 
