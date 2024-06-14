@@ -88,9 +88,8 @@ async def save_first_frame(video_path, output_image_path):
     except cv2.error as cv2_err:
         logger.error(f"OpenCV error: {cv2_err}")
         return False
-
-    except Image.Error as pil_err:
-        logger.error(f"PIL error: {pil_err}")
+    except IOError as e:
+        print(f'An error occurred: {e}')
         return False
 
     except Exception as e:
