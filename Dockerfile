@@ -16,18 +16,18 @@ COPY --chown=user . /code
 
 
 # Create necessary directories and set permissions before switching to non-root user
-RUN mkdir -p /code/uploaded_videos /code/output_frames \
-    && chown -R user:user /code \
-    && ls -l /code
+RUN mkdir -p /code/uploaded_videos /code/output_frames 
+#     && chown -R user:user /code \
+#     && ls -l /code
 
 
-# Check mounted directories instead of /code
+# # Check mounted directories instead of /code
 
-RUN ls -l /code/output_frames
+# RUN ls -l /code/output_frames
 
-USER user
+# USER user
 RUN ls -l /code 
-RUN ls -l /code/output_frames
+# RUN ls -l /code/output_frames
 
 ENV PATH="/code/venv/bin:$PATH"
 
