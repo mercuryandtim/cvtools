@@ -17,7 +17,8 @@ COPY --chown=user . /code
 
 # Create necessary directories and set permissions before switching to non-root user
 RUN mkdir -p /code/uploaded_videos /code/output_frames \
-    && chown -R user:user /code
+    && chown -R user:user /code \
+    && ls -l /code
 
 USER user
 
