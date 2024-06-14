@@ -107,9 +107,9 @@ async def process_video_and_return_url(video_file: UploadFile):
     logger.info(f"Output directory created or already exists: {output_dir}")
     if not os.access(output_dir, os.W_OK):
         raise PermissionError(f"Cannot write to directory: {output_dir}")
-    output_image_path = f"./code/output_frames/{os.path.splitext(video_file.filename)[0]}_first_frame.png"
+    output_image_path = f"./output_frames/{os.path.splitext(video_file.filename)[0]}_first_frame.png"
     logger.info(f"Output image path: {output_image_path}")
-    print(output_image_path)
+    # print(output_image_path)
     # output_image_path = (os.path.join(output_dir, f"{os.path.splitext(video_file.filename)[0]}_first_frame.png")).replace("\\", "/")
 
     # Save the uploaded video file
@@ -121,7 +121,7 @@ async def process_video_and_return_url(video_file: UploadFile):
         logger.error(f"Error saving uploaded video: {e}")
         raise HTTPException(status_code=500, detail="Failed to save uploaded video")
 
-    print(output_image_path)
+    # print(output_image_path)
     # Process the video asynchronously
     success = await save_first_frame(video_path, output_image_path)
     if success:
