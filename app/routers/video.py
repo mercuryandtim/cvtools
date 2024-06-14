@@ -26,8 +26,8 @@ async def test():
 async def getfile(filename: str):
     
     # Ensure the filename is concatenated correctly
-    file_path = fr".\output_frames\{filename}"
-    # print(file_path)
+    file_path = f".\output_frames\{filename}"
+    print(file_path)
     # Check if the file exists
     if not os.path.exists(file_path):
         raise HTTPException(status_code=404, detail="File not found")
