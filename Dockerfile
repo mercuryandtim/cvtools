@@ -20,8 +20,13 @@ RUN mkdir -p /code/uploaded_videos /code/output_frames \
     && chown -R user:user /code \
     && ls -l /code
 
-USER user
 
+# Check mounted directories instead of /code
+RUN ls -l /app
+RUN ls -l /output_frames
+
+USER user
+RUN ls -l /code 
 
 ENV PATH="/code/venv/bin:$PATH"
 
