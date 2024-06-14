@@ -25,7 +25,7 @@ RUN mkdir -p /code/uploaded_videos /code/output_frames \
 
 # RUN ls -l /code/output_frames
 
-# USER user
+USER user
 RUN ls -l /code 
 # RUN ls -l /code/output_frames
 
