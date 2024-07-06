@@ -30,5 +30,9 @@ app.add_middleware(
 
 app.include_router(video.router)
 
+@app.get("/")
+async def root():
+    return {"greeting": "Hello, World!", "message": "This is a service to extract the first frame of a video!"}
+
 if __name__ == "__main__":
     uvicorn.run("main:app", host=host, port=port, reload=True)

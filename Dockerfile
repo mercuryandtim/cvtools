@@ -28,4 +28,4 @@ RUN ls -l /code/output_frames
 ENV PATH="/code/venv/bin:$PATH"
 
 # Use PORT environment variable provided by Railway
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "${PORT}"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "${PORT}"]
