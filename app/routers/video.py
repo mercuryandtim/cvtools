@@ -18,9 +18,6 @@ router = APIRouter(
 
 logger = logging.getLogger(__name__)
 
-@router.get("/")
-async def test():
-    return ("test")
 
 @router.get("/static/storage/{filename}")
 async def getfile(filename: str):
