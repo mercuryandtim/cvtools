@@ -27,6 +27,8 @@ RUN ls -l /code/output_frames
 
 ENV PATH="/code/venv/bin:$PATH"
 
+# Print environment variables for debugging
+RUN echo "Environment Variables:" && printenv
 # Use PORT environment variable provided by Railway
 # CMD ["uvicorn", "app.main:app", "--host", "${HOST}", "--port", "${PORT}"]
 # Use a shell to expand environment variables
