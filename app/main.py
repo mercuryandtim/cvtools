@@ -14,9 +14,10 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
+
 # Read environment variables
-host = os.getenv("HOST")
-port = int(os.getenv("PORT"))
+host = os.getenv("HOST", "0.0.0.0")
+port = int(os.getenv("PORT", 8000))
 print(host,port)
 app = FastAPI()
 
@@ -35,4 +36,4 @@ async def root():
     return {"greeting": "Hello, World!", "message": "This is a service to extract the first frame of a video!"}
 
 if __name__ == "__main__":
-    uvicorn.run("app.main:app", host = host, port=os.getenv("PORT", default=5000), log_level="info")
+    uvicorn.run("app.main:app", host=host, port=port, log_level="info")
