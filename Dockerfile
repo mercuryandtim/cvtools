@@ -29,6 +29,6 @@ ENV PATH="/code/venv/bin:$PATH"
 
 # Use PORT environment variable provided by Railway
 # CMD ["uvicorn", "app.main:app", "--host", "${HOST}", "--port", "${PORT}"]
-# CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT}"]
 # Use a shell to expand environment variables
-CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT}"]
+# CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT}"]
+CMD ["sh", "-c", "hypercorn app.main:app --bind 0.0.0.0:${PORT}"]
