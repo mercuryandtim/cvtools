@@ -31,4 +31,4 @@ ENV PATH="/code/venv/bin:$PATH"
 # CMD ["uvicorn", "app.main:app", "--host", "${HOST}", "--port", "${PORT}"]
 # CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT}"]
 # Use a shell to expand environment variables
-CMD ["sh", "-c", "uvicorn app.main:app --host $HOST --port $PORT"]
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT}"]
