@@ -15,6 +15,9 @@ RUN /code/venv/bin/pip install --no-cache-dir --upgrade -r /code/requirements.tx
 
 COPY --chown=user . /code
 
+# Copy the start script into the container and change permissions before switching to non-root user
+COPY start.sh /code/start.sh
+RUN chmod +x /code/start.sh
 # Create necessary directories and set permissions before switching to non-root user
 RUN mkdir -p /code/uploaded_videos /code/output_frames \
     && chown -R user:user /code \
@@ -33,4 +36,5 @@ RUN echo "Environment Variables:" && printenv
 # CMD ["uvicorn", "app.main:app", "--host", "${HOST}", "--port", "${PORT}"]
 # Use a shell to expand environment variables
 # CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT}"]
-CMD ["sh", "-c", "hypercorn app.main:app --bind 0.0.0.0:${PORT}"]
+# CMD ["sh", "-c", "hypercorn app.main:app --bind 0.0.0.0:${PORT}"]
+CMD ["/code/start.sh"]
